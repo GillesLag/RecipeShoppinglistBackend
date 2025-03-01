@@ -152,13 +152,13 @@ public static class SeedData
             {
                 context.Shoppinglists.AddRange
                 (
-                    new Models.Shoppinglist
+                    new Shoppinglist
                     {
                         Id = 1,
                         Name = "Test",
                     },
 
-                    new Models.Shoppinglist
+                    new Shoppinglist
                     {
                         Id = 2,
                         Name = "Alina",

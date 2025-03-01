@@ -5,7 +5,7 @@ using RecipeShoppingList.Repostories.Interfaces;
 
 namespace RecipeShoppingList.Repostories;
 
-public class ShoppinglistRepository : GenericRepository<Models.Shoppinglist>, IShoppinglistRepository
+public class ShoppinglistRepository : GenericRepository<Shoppinglist>, IShoppinglistRepository
 {
     public ShoppinglistRepository(RecipeContext context)
         : base(context)
@@ -13,7 +13,7 @@ public class ShoppinglistRepository : GenericRepository<Models.Shoppinglist>, IS
         
     }
 
-    public override Models.Shoppinglist? GetById(int id)
+    public override Shoppinglist? GetById(int id)
     {
         return _context.Shoppinglists
             .Include(s => s.ShoppinglistIngredients)
@@ -21,7 +21,7 @@ public class ShoppinglistRepository : GenericRepository<Models.Shoppinglist>, IS
             .SingleOrDefault(s => s.Id == id);
     }
 
-    public Models.Shoppinglist GetLatestShoppinglist()
+    public Shoppinglist GetLatestShoppinglist()
     {
         return _context.Shoppinglists.Last();
     }

@@ -4,7 +4,7 @@ using RecipeShoppingList.Models;
 using RecipeShoppingList.Repostories;
 using System.ComponentModel;
 
-namespace Shoppinglist.Controllers
+namespace RecipeShoppinglist.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]

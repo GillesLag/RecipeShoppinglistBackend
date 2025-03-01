@@ -2,7 +2,7 @@
 
 namespace RecipeShoppingList.Repostories.Interfaces;
 
-public interface IShoppinglistRepository : IGenericRepository<Models.Shoppinglist>
+public interface IShoppinglistRepository : IGenericRepository<Shoppinglist>
 {
-    public Models.Shoppinglist GetLatestShoppinglist();
+    public Shoppinglist GetLatestShoppinglist();
 }

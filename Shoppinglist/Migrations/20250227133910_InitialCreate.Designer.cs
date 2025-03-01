@@ -7,7 +7,7 @@ using RecipeShoppingList.Data;
 
 #nullable disable
 
-namespace Shoppinglist.Migrations
+namespace RecipeShoppinglist.Migrations
 {
     [DbContext(typeof(RecipeContext))]
     [Migration("20250227133910_InitialCreate")]
@@ -83,7 +83,7 @@ namespace Shoppinglist.Migrations
                     b.ToTable("RecipeIngredients");
                 });
 
-            modelBuilder.Entity("RecipeShoppingList.Models.Shoppinglist", b =>
+            modelBuilder.Entity("RecipeShoppingList.Models.RecipeShoppinglist", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -152,7 +152,7 @@ namespace Shoppinglist.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RecipeShoppingList.Models.Shoppinglist", "Shoppinglist")
+                    b.HasOne("RecipeShoppingList.Models.RecipeShoppinglist", "RecipeShoppinglist")
                         .WithMany("ShoppinglistIngredients")
                         .HasForeignKey("ShoppinglistId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -160,7 +160,7 @@ namespace Shoppinglist.Migrations
 
                     b.Navigation("Ingredient");
 
-                    b.Navigation("Shoppinglist");
+                    b.Navigation("RecipeShoppinglist");
                 });
 
             modelBuilder.Entity("RecipeShoppingList.Models.Ingredient", b =>
@@ -175,7 +175,7 @@ namespace Shoppinglist.Migrations
                     b.Navigation("RecipeIngredients");
                 });
 
-            modelBuilder.Entity("RecipeShoppingList.Models.Shoppinglist", b =>
+            modelBuilder.Entity("RecipeShoppingList.Models.RecipeShoppinglist", b =>
                 {
                     b.Navigation("ShoppinglistIngredients");
                 });

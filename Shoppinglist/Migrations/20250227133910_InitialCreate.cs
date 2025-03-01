@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Shoppinglist.Migrations
+namespace RecipeShoppinglist.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
