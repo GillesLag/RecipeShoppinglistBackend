@@ -13,6 +13,13 @@ public class ShoppinglistRepository : GenericRepository<Shoppinglist>, IShopping
         
     }
 
+    public override IEnumerable<Shoppinglist> GetAll()
+    {
+        return _context.Shoppinglists
+            .Include(s => s.ShoppinglistIngredients)
+            .ThenInclude(si => si.Ingredient);
+    }
+
     public override Shoppinglist? GetById(int id)
     {
         return _context.Shoppinglists

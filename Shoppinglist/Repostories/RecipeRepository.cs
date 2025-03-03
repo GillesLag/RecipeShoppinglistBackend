@@ -13,6 +13,13 @@ public class RecipeRepository : GenericRepository<Recipe>, IRecipeRepository
         
     }
 
+    public override IEnumerable<Recipe> GetAll()
+    {
+        return _context.Recipes
+            .Include(r => r.RecipeIngredients)
+            .ThenInclude(ri => ri.Ingredient);
+    }
+
     public override Recipe? GetById(int id)
     {
         return _context.Recipes

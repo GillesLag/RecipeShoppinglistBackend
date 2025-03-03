@@ -28,7 +28,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
     }
 
-    public IEnumerable<T> GetAll()
+    public virtual IEnumerable<T> GetAll()
     {
         return _context.Set<T>().ToList();
     }
