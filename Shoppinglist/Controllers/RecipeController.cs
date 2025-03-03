@@ -20,9 +20,16 @@ namespace RecipeShoppinglist.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Recipe> GetAll()
+        public ActionResult<IEnumerable<Recipe>> GetAll()
         {
-            return _unitOfWork.RecipeRepo.GetAll();
+            var recipes = _unitOfWork.RecipeRepo.GetAll();
+
+            if (recipes is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(recipes);
         }
 
         [HttpGet]
