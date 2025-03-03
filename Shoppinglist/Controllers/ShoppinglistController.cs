@@ -42,39 +42,19 @@ namespace RecipeShoppinglist.Controllers
         }
 
         [HttpPut]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddRecipeToShoppinglist(int shoppinglistId, int recipeId)
+        //[ValidateAntiForgeryToken]
+        public ActionResult AddRecipeToShoppinglist([FromBody]Shoppinglist shoppinglist)
         {
-            var shoppinglist = _unitOfWork.ShoppinglistRepo.GetById(shoppinglistId);
-            var recipe = _unitOfWork.RecipeRepo.GetById(recipeId);
+            var list = _unitOfWork.ShoppinglistRepo.GetById(shoppinglist.Id);
 
-            if (shoppinglist == null || recipe == null)
+            if (list is null)
             {
                 return NotFound();
             }
 
-            foreach (var item in recipe.RecipeIngredients)
-            {
-                var shoppinglistIngredient = shoppinglist.ShoppinglistIngredients.SingleOrDefault(x => x.IngredientId == item.IngredientId);
-                if (shoppinglistIngredient is not null)
-                {
-                    shoppinglistIngredient.Quantity += item.Quantity;
-                }
-                else
-                {
-                    var newItem = new ShoppinglistIngredient()
-                    {
-                        ShoppinglistId = shoppinglistId,
-                        IngredientId = item.IngredientId,
-                        Quantity = item.Quantity,
-                        Measurement = item.Measurement,
-                    };
-
-                    shoppinglist.ShoppinglistIngredients.Add(newItem);
-                }
-            }
-
+            _unitOfWork.ShoppinglistRepo.Update(shoppinglist);
             _unitOfWork.Save();
+
             return Ok();
         }
     }
