@@ -32,10 +32,17 @@ namespace RecipeShoppinglist.Controllers
             return Ok(recipes);
         }
 
-        [HttpGet]
-        public Recipe GetById()
+        [HttpGet("{id}")]
+        public ActionResult<Recipe> GetById(int id)
         {
-            return new Recipe();
+            var recipe = _unitOfWork.RecipeRepo.GetById(id);
+
+            if (recipe is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(recipe);
         }
     }
 }
