@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RecipeShoppinglist.Models;
 using RecipeShoppingList.Models;
 using RecipeShoppingList.Models.Enums;
 
@@ -206,6 +207,28 @@ public static class SeedData
                         Measurement = Measurement.Gram,
                         IngredientId = 4,
                         ShoppinglistId = 2
+                    }
+                );
+
+                context.SaveChanges();
+            }
+
+            if (!context.ShoppinglistRecipes.Any())
+            {
+                context.ShoppinglistRecipes.AddRange
+                (
+                    new ShoppinglistRecipe
+                    {
+                        Id = 1,
+                        ShoppinglistId = 1,
+                        RecipeId = 1
+                    },
+
+                    new ShoppinglistRecipe
+                    {
+                        Id = 2,
+                        ShoppinglistId = 2,
+                        RecipeId = 2
                     }
                 );
 

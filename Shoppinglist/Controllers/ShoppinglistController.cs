@@ -42,7 +42,7 @@ namespace RecipeShoppinglist.Controllers
         }
 
         [HttpPut("{id}")]
-        //[ValidateAntiForgeryToken]
+        ///TODO Add ShoppinglistRecipe to database
         public ActionResult AddRecipeToShoppinglist(int id, [FromBody]Shoppinglist shoppinglist)
         {
             var list = _unitOfWork.ShoppinglistRepo.GetById(id);

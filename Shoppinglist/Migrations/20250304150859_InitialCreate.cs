@@ -107,6 +107,32 @@ namespace RecipeShoppinglist.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ShoppinglistRecipes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ShoppinglistId = table.Column<int>(type: "INTEGER", nullable: false),
+                    RecipeId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppinglistRecipes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShoppinglistRecipes_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ShoppinglistRecipes_Shoppinglists_ShoppinglistId",
+                        column: x => x.ShoppinglistId,
+                        principalTable: "Shoppinglists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_RecipeIngredients_IngredientId",
                 table: "RecipeIngredients",
@@ -126,6 +152,16 @@ namespace RecipeShoppinglist.Migrations
                 name: "IX_ShoppinglistIngredients_ShoppinglistId",
                 table: "ShoppinglistIngredients",
                 column: "ShoppinglistId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppinglistRecipes_RecipeId",
+                table: "ShoppinglistRecipes",
+                column: "RecipeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppinglistRecipes_ShoppinglistId",
+                table: "ShoppinglistRecipes",
+                column: "ShoppinglistId");
         }
 
         /// <inheritdoc />
@@ -138,10 +174,13 @@ namespace RecipeShoppinglist.Migrations
                 name: "ShoppinglistIngredients");
 
             migrationBuilder.DropTable(
-                name: "Recipes");
+                name: "ShoppinglistRecipes");
 
             migrationBuilder.DropTable(
                 name: "Ingredients");
+
+            migrationBuilder.DropTable(
+                name: "Recipes");
 
             migrationBuilder.DropTable(
                 name: "Shoppinglists");
