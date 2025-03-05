@@ -37,7 +37,7 @@ namespace RecipeShoppinglist.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CookingInstructions")
+                    b.PrimitiveCollection<string>("CookingInstructions")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -122,27 +122,6 @@ namespace RecipeShoppinglist.Migrations
                     b.ToTable("ShoppinglistIngredients");
                 });
 
-            modelBuilder.Entity("RecipeShoppinglist.Models.ShoppinglistRecipe", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ShoppinglistId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecipeId");
-
-                    b.HasIndex("ShoppinglistId");
-
-                    b.ToTable("ShoppinglistRecipes");
-                });
-
             modelBuilder.Entity("RecipeShoppingList.Models.RecipeIngredient", b =>
                 {
                     b.HasOne("RecipeShoppingList.Models.Ingredient", "Ingredient")
@@ -181,25 +160,6 @@ namespace RecipeShoppinglist.Migrations
                     b.Navigation("Shoppinglist");
                 });
 
-            modelBuilder.Entity("RecipeShoppinglist.Models.ShoppinglistRecipe", b =>
-                {
-                    b.HasOne("RecipeShoppingList.Models.Recipe", "Recipe")
-                        .WithMany("ShoppinglistRecipes")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RecipeShoppingList.Models.Shoppinglist", "Shoppinglist")
-                        .WithMany("ShoppinglistRecipes")
-                        .HasForeignKey("ShoppinglistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Recipe");
-
-                    b.Navigation("Shoppinglist");
-                });
-
             modelBuilder.Entity("RecipeShoppingList.Models.Ingredient", b =>
                 {
                     b.Navigation("RecipeIngredients");
@@ -210,15 +170,11 @@ namespace RecipeShoppinglist.Migrations
             modelBuilder.Entity("RecipeShoppingList.Models.Recipe", b =>
                 {
                     b.Navigation("RecipeIngredients");
-
-                    b.Navigation("ShoppinglistRecipes");
                 });
 
             modelBuilder.Entity("RecipeShoppingList.Models.Shoppinglist", b =>
                 {
                     b.Navigation("ShoppinglistIngredients");
-
-                    b.Navigation("ShoppinglistRecipes");
                 });
 #pragma warning restore 612, 618
         }

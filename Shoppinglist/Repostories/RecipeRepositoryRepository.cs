@@ -5,9 +5,9 @@ using RecipeShoppingList.Repostories.Interfaces;
 
 namespace RecipeShoppingList.Repostories;
 
-public class RecipeRepository : GenericRepository<Recipe>, IRecipeRepository
+public class RecipeRepositoryRepository : GenericRepository<Recipe>, IRecipeRepository
 {
-    public RecipeRepository(RecipeContext context)
+    public RecipeRepositoryRepository(RecipeContext context)
         : base(context)
     {
         

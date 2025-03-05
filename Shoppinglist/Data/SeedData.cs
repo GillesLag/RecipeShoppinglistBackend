@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RecipeShoppinglist.Models;
 using RecipeShoppingList.Models;
 using RecipeShoppingList.Models.Enums;
 
@@ -20,7 +19,7 @@ public static class SeedData
                         Id = 1,
                         Name = "Pannekoeken",
                         Servings = 2,
-                        CookingInstructions = "blablalbalbalbl"
+                        CookingInstructions = ["sldflskdjf", "askdjflskj"]
                     },
 
                     new Recipe
@@ -28,7 +27,7 @@ public static class SeedData
                         Id = 2,
                         Name = "Spaghetti",
                         Servings = 4,
-                        CookingInstructions = "blablalblablalblablalb"
+                        CookingInstructions = ["sldflskdjf", "askdjflskj"]
                     },
 
                     new Recipe
@@ -36,7 +35,7 @@ public static class SeedData
                         Id = 3,
                         Name = "Steak met frieten",
                         Servings = 4,
-                        CookingInstructions = "bakken in lekkere bad"
+                        CookingInstructions = ["sldflskdjf", "askdjflskj"]
                     }
                 );
 
@@ -207,28 +206,6 @@ public static class SeedData
                         Measurement = Measurement.Gram,
                         IngredientId = 4,
                         ShoppinglistId = 2
-                    }
-                );
-
-                context.SaveChanges();
-            }
-
-            if (!context.ShoppinglistRecipes.Any())
-            {
-                context.ShoppinglistRecipes.AddRange
-                (
-                    new ShoppinglistRecipe
-                    {
-                        Id = 1,
-                        ShoppinglistId = 1,
-                        RecipeId = 1
-                    },
-
-                    new ShoppinglistRecipe
-                    {
-                        Id = 2,
-                        ShoppinglistId = 2,
-                        RecipeId = 2
                     }
                 );
 

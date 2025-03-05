@@ -25,8 +25,6 @@ public class ShoppinglistRepository : GenericRepository<Shoppinglist>, IShopping
         return _context.Shoppinglists
             .Include(s => s.ShoppinglistIngredients)
             .ThenInclude(si => si.Ingredient)
-            .Include(s => s.ShoppinglistRecipes)
-            .ThenInclude(sr => sr.Recipe)
             .SingleOrDefault(s => s.Id == id);
     }
 

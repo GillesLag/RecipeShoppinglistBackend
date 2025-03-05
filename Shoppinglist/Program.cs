@@ -15,7 +15,7 @@ builder.Services.AddDbContext<RecipeContext>(options =>
 });
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+builder.Services.AddScoped<IRecipeRepository, RecipeRepositoryRepository>();
 builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
 builder.Services.AddScoped<IShoppinglistRepository, ShoppinglistRepository>();
 builder.Services.AddControllers().AddJsonOptions(options =>

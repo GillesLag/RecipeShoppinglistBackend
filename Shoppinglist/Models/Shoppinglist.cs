@@ -1,5 +1,4 @@
-﻿using RecipeShoppinglist.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RecipeShoppingList.Models;
 
@@ -10,5 +9,4 @@ public class Shoppinglist
     [Required]
     public string? Name { get; set; }
     public ICollection<ShoppinglistIngredient> ShoppinglistIngredients { get; set; } = new List<ShoppinglistIngredient>();
-    public ICollection<ShoppinglistRecipe> ShoppinglistRecipes { get; set; } = new List<ShoppinglistRecipe>();
 }

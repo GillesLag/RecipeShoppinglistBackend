@@ -55,6 +55,7 @@ namespace RecipeShoppinglist.Controllers
             list.Name = shoppinglist.Name;
             list.ShoppinglistIngredients.Clear();
 
+            //Add ingredients to shoppinglist
             foreach (var item in shoppinglist.ShoppinglistIngredients)
             {
                 var shoppinglistIngredient = _unitOfWork.ShoppinglistIngredientRepo.GetById(item.Id);

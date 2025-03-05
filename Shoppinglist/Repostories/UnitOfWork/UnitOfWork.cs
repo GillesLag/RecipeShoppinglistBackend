@@ -18,7 +18,7 @@ public class UnitOfWork : IUnitOfWork
     {
         _context = context;
 
-        RecipeRepo = new RecipeRepository(context);
+        RecipeRepo = new RecipeRepositoryRepository(context);
         IngredientRepo = new IngredientRepository(context);
         ShoppinglistRepo = new ShoppinglistRepository(context);
         ShoppinglistIngredientRepo = new ShoppinglistIngredientRepository(context);
