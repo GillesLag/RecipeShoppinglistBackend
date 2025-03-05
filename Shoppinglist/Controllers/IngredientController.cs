@@ -16,6 +16,8 @@ public class IngredientController : Controller
         _logger = logger;
         _unitOfWork = unitOfWork;
     }
+
+    [HttpGet]
     public ActionResult<IEnumerable<Ingredient>> GetAll()
     {
         var ingredients = _unitOfWork.IngredientRepo.GetAll();

@@ -13,7 +13,7 @@ public class Recipe
     public int Servings { get; set; }
 
     [Required]
-    public string[]? CookingInstructions { get; set; }
+    public ICollection<string> CookingInstructions { get; set; } = new List<string>();
 
     [Required]
     public ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
