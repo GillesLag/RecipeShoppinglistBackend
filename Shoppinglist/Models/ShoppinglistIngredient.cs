@@ -14,6 +14,7 @@ public class ShoppinglistIngredient
 
     [Required]
     public Measurement Measurement { get; set; }
+    public bool IsChecked { get; set; }
 
 
     public Shoppinglist? Shoppinglist { get; set; }

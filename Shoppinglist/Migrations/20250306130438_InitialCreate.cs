@@ -88,7 +88,8 @@ namespace RecipeShoppinglist.Migrations
                     ShoppinglistId = table.Column<int>(type: "INTEGER", nullable: false),
                     IngredientId = table.Column<int>(type: "INTEGER", nullable: false),
                     Quantity = table.Column<float>(type: "REAL", nullable: false),
-                    Measurement = table.Column<int>(type: "INTEGER", nullable: false)
+                    Measurement = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsChecked = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
