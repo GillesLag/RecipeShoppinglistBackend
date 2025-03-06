@@ -14,7 +14,7 @@ public class RecipeIngredient
 
     [Required]
     public Measurement Measurement { get; set; }
-
+    public bool IsChecked { get; set; } = true;
     public Recipe? Recipe { get; set; }
     public Ingredient? Ingredient { get; set; }
 }

@@ -10,7 +10,7 @@ using RecipeShoppingList.Data;
 namespace RecipeShoppinglist.Migrations
 {
     [DbContext(typeof(RecipeContext))]
-    [Migration("20250306130438_InitialCreate")]
+    [Migration("20250306153132_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -63,6 +63,9 @@ namespace RecipeShoppinglist.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("IngredientId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsChecked")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Measurement")

@@ -62,6 +62,9 @@ namespace RecipeShoppinglist.Migrations
                     b.Property<int>("IngredientId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("IsChecked")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Measurement")
                         .HasColumnType("INTEGER");
 
