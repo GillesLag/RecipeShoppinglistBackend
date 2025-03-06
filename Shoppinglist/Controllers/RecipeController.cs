@@ -52,7 +52,7 @@ namespace RecipeShoppinglist.Controllers
         {
             var newRecipe = new Recipe()
             {
-                CookingInstructions = recipeDto.CookingInstruction,
+                CookingInstructions = recipeDto.CookingInstructions,
                 Name = recipeDto.Name,
                 Servings = recipeDto.Servings,
             };
@@ -73,7 +73,9 @@ namespace RecipeShoppinglist.Controllers
                 {
                     Ingredient = ingredient,
                     Recipe = newRecipe,
-                    Quantity = recipeIngredient.Quantity
+                    Quantity = recipeIngredient.Quantity,
+                    Measurement = recipeIngredient.Measurement,
+                    IngredientId = ingredient.Id
                 };
 
                 newRecipe.RecipeIngredients.Add(newRecipeIngredient);
@@ -83,6 +85,22 @@ namespace RecipeShoppinglist.Controllers
             _unitOfWork.Save();
 
             return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            var recipe = _unitOfWork.RecipeRepo.GetById(id);
+
+            if (recipe is null)
+            {
+                return NotFound();
+            }
+
+            _unitOfWork.RecipeRepo.Delete(id);
+            _unitOfWork.Save();
+
+            return NoContent();
         }
     }
 }

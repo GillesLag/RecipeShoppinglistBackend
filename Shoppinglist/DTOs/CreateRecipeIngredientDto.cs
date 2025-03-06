@@ -1,4 +1,5 @@
 ﻿using RecipeShoppingList.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace RecipeShoppinglist.DTOs;
 
