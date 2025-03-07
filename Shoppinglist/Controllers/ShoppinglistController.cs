@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RecipeShoppinglist.DTOs;
 using RecipeShoppingList.Models;
 using RecipeShoppingList.Repostories;
 
@@ -41,22 +42,35 @@ namespace RecipeShoppinglist.Controllers
             return Ok(shoppinglist);
         }
 
-        [HttpPut("{id}")]
-        ///TODO Add ShoppinglistRecipe to database
-        public ActionResult AddRecipeToShoppinglist(int id, [FromBody]Shoppinglist shoppinglist)
+        [HttpPost]
+        public ActionResult<Shoppinglist> Add([FromBody]CreateShoppinglistDto shoppinglistDto)
         {
-            var list = _unitOfWork.ShoppinglistRepo.GetById(id);
+            var shoppinglist = new Shoppinglist()
+            {
+                Name = shoppinglistDto.Name
+            };
 
-            if (list is null)
+            _unitOfWork.ShoppinglistRepo.Add(shoppinglist);
+            _unitOfWork.Save();
+
+            return CreatedAtAction(nameof(GetById), new { id = shoppinglist.Id }, shoppinglist);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateShoppinglist(int id, [FromBody]UpdateShoppinglistDto shoppinglistDto)
+        {
+            var shoppinglist = _unitOfWork.ShoppinglistRepo.GetById(id);
+
+            if (shoppinglist is null)
             {
                 return NotFound();
             }
 
-            list.Name = shoppinglist.Name;
-            list.ShoppinglistIngredients.Clear();
+            shoppinglist.Name = shoppinglistDto.Name;
+            shoppinglist.ShoppinglistIngredients.Clear();
 
             //Add ingredients to shoppinglist
-            foreach (var item in shoppinglist.ShoppinglistIngredients)
+            foreach (var item in shoppinglistDto.ShoppinglistIngredients)
             {
                 var shoppinglistIngredient = _unitOfWork.ShoppinglistIngredientRepo.GetById(item.Id);
 
@@ -77,7 +91,7 @@ namespace RecipeShoppinglist.Controllers
                     shoppinglistIngredient.Quantity = item.Quantity;
                 }
 
-                list.ShoppinglistIngredients.Add(shoppinglistIngredient);
+                shoppinglist.ShoppinglistIngredients.Add(shoppinglistIngredient);
             }
 
             _unitOfWork.Save();

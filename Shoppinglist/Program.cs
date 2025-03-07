@@ -23,7 +23,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
-builder.Services.AddControllers();
 builder.Services.AddAntiforgery();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -56,13 +55,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
+
+app.UseStaticFiles();
 
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.UseCors("AllowAngularApp");
-
 app.UseAntiforgery();
 
 app.Run();
