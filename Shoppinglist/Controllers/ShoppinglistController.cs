@@ -57,7 +57,7 @@ namespace RecipeShoppinglist.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateShoppinglist(int id, [FromBody]UpdateShoppinglistDto shoppinglistDto)
+        public ActionResult<Shoppinglist> UpdateShoppinglist(int id, [FromBody]UpdateShoppinglistDto shoppinglistDto)
         {
             var shoppinglist = _unitOfWork.ShoppinglistRepo.GetById(id);
 
@@ -96,7 +96,7 @@ namespace RecipeShoppinglist.Controllers
 
             _unitOfWork.Save();
 
-            return Ok();
+            return CreatedAtAction(nameof(GetById), new { id = shoppinglist.Id }, shoppinglist);
         }
     }
 }

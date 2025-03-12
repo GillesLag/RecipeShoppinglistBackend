@@ -47,7 +47,7 @@ namespace RecipeShoppinglist.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       //[ValidateAntiForgeryToken]
         public ActionResult CreateRecipe([FromBody] CreateRecipeDto recipeDto)
         {
             var newRecipe = new Recipe()
