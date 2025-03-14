@@ -98,5 +98,14 @@ namespace RecipeShoppinglist.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = shoppinglist.Id }, shoppinglist);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult<int> Delete(int id)
+        {
+            _unitOfWork.ShoppinglistRepo.Delete(id);
+            _unitOfWork.Save();
+
+            return Ok(id);
+        }
     }
 }
