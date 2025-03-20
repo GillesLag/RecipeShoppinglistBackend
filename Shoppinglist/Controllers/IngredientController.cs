@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RecipeShoppinglist.DTOs;
 using RecipeShoppingList.Models;
 using RecipeShoppingList.Repostories;
 
@@ -28,5 +29,33 @@ public class IngredientController : Controller
         }
 
         return Ok(ingredients);
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    public ActionResult<Ingredient> GetById(int id)
+    {
+        var ingredient = _unitOfWork.IngredientRepo.GetById(id);
+
+        if (ingredient is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(ingredient);
+    }
+
+    [HttpPost]
+    public ActionResult<Ingredient> Create(CreateIngredientDto ingredientDto)
+    {
+        Ingredient ingredient = new Ingredient
+        {
+            Name = ingredientDto.Name,
+        };
+
+        _unitOfWork.IngredientRepo.Add(ingredient);
+        _unitOfWork.Save();
+
+        return CreatedAtAction(nameof(GetById), new {id = ingredient.Id}, ingredient);
     }
 }

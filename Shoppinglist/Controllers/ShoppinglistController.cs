@@ -83,8 +83,6 @@ namespace RecipeShoppinglist.Controllers
                         Quantity = item.Quantity,
                         Measurement = item.Measurement,
                     };
-
-                    _unitOfWork.ShoppinglistIngredientRepo.Add(shoppinglistIngredient);
                 }
                 else
                 {
