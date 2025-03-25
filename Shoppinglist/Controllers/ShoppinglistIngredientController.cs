@@ -20,6 +20,11 @@ namespace RecipeShoppinglist.Controllers
         [Route("{id}")]
         public ActionResult Update(int id, [FromBody]UpdateShoppinglistIngredientDto ingredientDto)
         {
+            if (ingredientDto is null)
+            {
+                return BadRequest();
+            }
+
             var ingredient = _unitOfWork.ShoppinglistIngredientRepo.GetById(id);
 
             if (ingredient == null)

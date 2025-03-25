@@ -74,4 +74,40 @@ public class ShoppinglistIngredientControllerTests
         _mockRepo.Verify(repo => repo.ShoppinglistIngredientRepo.Update(shoppinglistIngredient), Times.Once());
         _mockRepo.Verify(repo => repo.Save(), Times.Once());
     }
+
+    [Test]
+    public void Update_ReturnBadRequest_WhenPayloadIsWrong()
+    {
+        // Arrange
+
+        // Act
+        var result = _controller.Update(1, null!);
+
+        // Assert
+        Assert.That(result, Is.InstanceOf<BadRequestResult>());
+    }
+
+    [Test]
+    public void Update_ReturnNotFound_WhenIdDoesNotExist()
+    {
+        // Arrange
+        var shoppinglistIngredientDto = new UpdateShoppinglistIngredientDto()
+        {
+            Id = 99,
+            IngredientId = 1,
+            ShoppinglistId = 1,
+            Quantity = 150,
+            Measurement = Measurement.Liter,
+            IsChecked = true,
+        };
+
+        _mockRepo.Setup(repo => repo.ShoppinglistIngredientRepo.GetById(99))
+            .Returns((ShoppinglistIngredient)null!);
+
+        // Act
+        var result = _controller.Update(99, shoppinglistIngredientDto);
+
+        // Assert
+        Assert.That(result, Is.InstanceOf<NotFoundResult>());
+    }
 }
