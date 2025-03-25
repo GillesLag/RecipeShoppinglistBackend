@@ -46,7 +46,7 @@ public class IngredientController : Controller
     }
 
     [HttpPost]
-    public ActionResult<Ingredient> Create(CreateIngredientDto ingredientDto)
+    public ActionResult<Ingredient> Create([FromBody] CreateIngredientDto ingredientDto)
     {
         Ingredient ingredient = new Ingredient
         {

@@ -9,7 +9,7 @@ namespace RecipeShoppinglist.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    public class RecipeController : ControllerBase
+    public class RecipeController : Controller
     {
         private readonly ILogger<RecipeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
@@ -47,7 +47,6 @@ namespace RecipeShoppinglist.Controllers
         }
 
         [HttpPost]
-       //[ValidateAntiForgeryToken]
         public ActionResult CreateRecipe([FromBody] CreateRecipeDto recipeDto)
         {
             var newRecipe = new Recipe()

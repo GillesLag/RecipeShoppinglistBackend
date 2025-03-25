@@ -1,29 +1,26 @@
-using System.Linq;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using RecipeShoppinglist.Controllers;
 using RecipeShoppinglist.DTOs;
 using RecipeShoppingList.Models;
 using RecipeShoppingList.Repostories;
-using RecipeShoppingList.Repostories.Interfaces;
 
-namespace RecipeShoppinglist.Test.Contollers;
+namespace RecipeShoppinglist.Test;
 
 [TestFixture]
-public class IngredientControllerTests
+public class ShoppinglistControllerTests
 {
-    private Mock<ILogger<IngredientController>> _mockLogger;
+    private Mock<ILogger<ShoppinglistController>> _mockLogger;
     private Mock<IUnitOfWork> _mockRepo;
-    private IngredientController _controller;
+    private ShoppinglistController _controller;
 
     [SetUp]
     public void SetUp()
     {
-        _mockLogger = new Mock<ILogger<IngredientController>>();
+        _mockLogger = new Mock<ILogger<ShoppinglistController>>();
         _mockRepo = new Mock<IUnitOfWork>();
-        _controller = new IngredientController(_mockLogger.Object, _mockRepo.Object);
+        _controller = new ShoppinglistController(_mockLogger.Object, _mockRepo.Object);
     }
 
     [TearDown]
@@ -36,14 +33,14 @@ public class IngredientControllerTests
     public void GetAll_ReturnsOkActionResult_WithAllTheIngredients()
     {
         // Arrange
-        var ingredients = new List<Ingredient>
+        var shoppinglists = new List<Shoppinglist>
         {
-            new() { Id = 1, Name = "Salt" },
-            new() { Id = 2, Name = "Sugar" }
+            new() { Id = 1, Name = "Kerst" },
+            new() { Id = 2, Name = "Pasen" }
         };
 
-        _mockRepo.Setup(repo => repo.IngredientRepo.GetAll())
-            .Returns(ingredients);
+        _mockRepo.Setup(repo => repo.ShoppinglistRepo.GetAll())
+            .Returns(shoppinglists);
 
         // Act
         var result = _controller.GetAll();
@@ -53,15 +50,15 @@ public class IngredientControllerTests
 
         var okResult = result.Result as OkObjectResult;
         Assert.That(okResult, Is.Not.Null);
-        Assert.That(ingredients, Is.EqualTo(okResult.Value));
+        Assert.That(shoppinglists, Is.EqualTo(okResult.Value));
     }
 
     [Test]
     public void GetAll_ReturnsNotFound_WhenIngredientsIsNull()
     {
         // Arrange
-        _mockRepo.Setup(repo => repo.IngredientRepo.GetAll())
-            .Returns((List<Ingredient>)null!);
+        _mockRepo.Setup(repo => repo.ShoppinglistRepo.GetAll())
+            .Returns((List<Shoppinglist>)null!);
 
         // Act
         var result = _controller.GetAll();
@@ -71,18 +68,18 @@ public class IngredientControllerTests
     }
 
     [Test]
-    public void GetById_ReturnsOkActionResult_WithOneIngredient([Values(1,2,3)] int id)
+    public void GetById_ReturnsOkActionResult_WithOneIngredient([Values(1, 2, 3)] int id)
     {
         // Arrange
-        var ingredients = new List<Ingredient>
+        var shoppinglists = new List<Shoppinglist>
         {
-            new() { Id = 1, Name = "Salt" },
-            new() { Id = 2, Name = "Sugar" },
-            new() { Id = 3, Name = "Tomaat" }
+            new() { Id = 1, Name = "Kerst" },
+            new() { Id = 2, Name = "Pasen" },
+            new() { Id = 3, Name = "valentijn" }
         };
 
-        _mockRepo.Setup(repo => repo.IngredientRepo.GetById(It.Is<int>(x => x == id)))
-            .Returns((int x) => ingredients.First(i => i.Id == x));
+        _mockRepo.Setup(repo => repo.ShoppinglistRepo.GetById(It.Is<int>(x => x == id)))
+            .Returns((int x) => shoppinglists.First(i => i.Id == x));
 
         // Act
         var result = _controller.GetById(id);
@@ -92,15 +89,15 @@ public class IngredientControllerTests
 
         var okResult = result.Result as OkObjectResult;
         Assert.That(okResult, Is.Not.Null);
-        Assert.That(id, Is.EqualTo(((Ingredient)okResult.Value!).Id));
+        Assert.That(id, Is.EqualTo(((Shoppinglist)okResult.Value!).Id));
     }
 
     [Test]
     public void GetById_ReturnsNotFound_WhenIdDoesNotExist()
     {
         // Arrange
-        _mockRepo.Setup(repo => repo.IngredientRepo.GetById(It.IsAny<int>()))
-            .Returns((Ingredient)null!);
+        _mockRepo.Setup(repo => repo.ShoppinglistRepo.GetById(It.IsAny<int>()))
+            .Returns((Shoppinglist)null!);
 
         // Act
         var noneExistingId = 999;
@@ -114,14 +111,14 @@ public class IngredientControllerTests
     public void Create_ReturnsCreatedAtActionResult_WithTheIngredient()
     {
         // Arrange
-        var ingredientDto = new CreateIngredientDto { Name = "Bloem" };
-        var ingredient = new Ingredient { Id = 1, Name = "Bloem" };
+        var shoppinglistDto = new CreateShoppinglistDto { Name = "Kerst" };
+        var shoppinglist = new Shoppinglist { Id = 1, Name = "Kerst" };
 
-        _mockRepo.Setup(repo => repo.IngredientRepo.Add(It.IsAny<Ingredient>()))
-            .Callback<Ingredient>(i => i.Id = 1);
+        _mockRepo.Setup(repo => repo.ShoppinglistRepo.Add(It.IsAny<Shoppinglist>()))
+            .Callback<Shoppinglist>(i => i.Id = 1);
 
         // Act
-        var result = _controller.Create(ingredientDto);
+        var result = _controller.Add(shoppinglistDto);
 
         // Assert
         Assert.That(result.Result, Is.InstanceOf<CreatedAtActionResult>());
@@ -131,10 +128,10 @@ public class IngredientControllerTests
         Assert.Multiple(() =>
         {
             Assert.That(createdResult.ActionName, Is.EqualTo("GetById"));
-            Assert.That(((Ingredient)createdResult.Value!).Id, Is.EqualTo(ingredient.Id));
+            Assert.That(((Shoppinglist)createdResult.Value!).Id, Is.EqualTo(shoppinglist.Id));
         });
 
-        _mockRepo.Verify(repo => repo.IngredientRepo.Add(It.IsAny<Ingredient>()), Times.Once);
+        _mockRepo.Verify(repo => repo.ShoppinglistRepo.Add(It.IsAny<Shoppinglist>()), Times.Once);
         _mockRepo.Verify(repo => repo.Save(), Times.Once);
     }
 }
