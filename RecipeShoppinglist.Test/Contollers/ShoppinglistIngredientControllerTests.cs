@@ -7,7 +7,7 @@ using RecipeShoppingList.Models;
 using RecipeShoppingList.Models.Enums;
 using RecipeShoppingList.Repostories;
 
-namespace RecipeShoppinglist.Test;
+namespace RecipeShoppinglist.Test.Contollers;
 
 [TestFixture]
 public class ShoppinglistIngredientControllerTests

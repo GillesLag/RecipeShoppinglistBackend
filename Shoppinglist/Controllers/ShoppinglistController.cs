@@ -45,6 +45,11 @@ namespace RecipeShoppinglist.Controllers
         [HttpPost]
         public ActionResult<Shoppinglist> Add([FromBody]CreateShoppinglistDto shoppinglistDto)
         {
+            if (shoppinglistDto is null)
+            {
+                return BadRequest();
+            }
+
             var shoppinglist = new Shoppinglist()
             {
                 Name = shoppinglistDto.Name
@@ -87,6 +92,7 @@ namespace RecipeShoppinglist.Controllers
                 else
                 {
                     shoppinglistIngredient.Quantity = item.Quantity;
+                    shoppinglistIngredient.Measurement = item.Measurement;
                 }
 
                 shoppinglist.ShoppinglistIngredients.Add(shoppinglistIngredient);
@@ -94,16 +100,24 @@ namespace RecipeShoppinglist.Controllers
 
             _unitOfWork.Save();
 
-            return CreatedAtAction(nameof(GetById), new { id = shoppinglist.Id }, shoppinglist);
+            var test = CreatedAtAction(nameof(GetById), new { id = shoppinglist.Id }, shoppinglist);
+            return test;
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<int> Delete(int id)
+        public ActionResult Delete(int id)
         {
+            var shoppinglist = _unitOfWork.ShoppinglistRepo.GetById(id);
+
+            if (shoppinglist is null)
+            {
+                return NotFound();
+            }
+
             _unitOfWork.ShoppinglistRepo.Delete(id);
             _unitOfWork.Save();
 
-            return Ok(id);
+            return NoContent();
         }
     }
 }

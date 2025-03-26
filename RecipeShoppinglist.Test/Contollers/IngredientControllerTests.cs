@@ -1,5 +1,3 @@
-using System.Linq;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -7,7 +5,6 @@ using RecipeShoppinglist.Controllers;
 using RecipeShoppinglist.DTOs;
 using RecipeShoppingList.Models;
 using RecipeShoppingList.Repostories;
-using RecipeShoppingList.Repostories.Interfaces;
 
 namespace RecipeShoppinglist.Test.Contollers;
 
